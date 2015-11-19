@@ -4,18 +4,25 @@
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
 
-########## Variables
-
 set -x
-homedir="/home/willem"
-dir=$homedir/dotfiles                    # dotfiles directory
-olddir=$dir/old             # old dotfiles backup directory
-files="bashrc bash_aliases bash_logout vimrc vim Xdefaults profile"    # list of files/folders to symlink in homedir
+shopt -s nullglob
 
-# read input
+########## Variables
+homedir="/home/willem"
+dotfilesname="dotfiles"
+backupdirname="old"
+scriptname="deploy.sh"
+
+dir=$homedir/$dotfilesname                  # dotfiles directory
+backupdir=$dir/$backupdirname             # old dotfiles backup directory
+ignorefiles="$backupdirname $scriptname README README.md"    # list of files/folders to symlink in homedir
+files=$dir/*
+
+set +x
+
+########## Confirmation dialog
 read -p "Are you sure you want to install dotfiles with these settings? Y/N: " answer
 
-# handle input
 while true
 do
     case $answer in
@@ -25,24 +32,40 @@ do
     esac
 done
 
-##########
-
-# create dotfiles_old in homedir
-mkdir -p $olddir
+########## Process
+# Backup directory
+mkdir -p $backupdir
 
 # change to the dotfiles directory
 cd $dir
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
+
 for file in $files; do
-    if [ -h $homedir/.$file ]; then
+    echo "processing $file"
+    for notthisfile in $ignorefiles; do
+        if [ "$dir/$notthisfile" == "$file" ]; then
+            echo "blacklisted"
+            continue 2
+        fi
+    done
+            
+    if [ -h $homedir/.$(basename $file) ]; then
         echo "symlink already exists"
         continue
     fi
-    if [ -e $homedir/.$file ]; then
-        mv $homedir/.$file $olddir
+    if [ -e $homedir/.$(basename $file) ]; then
+        if [ -e $backupdir/.$file ]; then
+            echo "backup conflict, aborting"
+            continue
+        fi
+        echo "backing up .$file"
+        mv $homedir/.$(basename $file) $backupdir
+    else
+        echo "nothing to backup"
     fi
-    if [ -e $dir/$file ]; then
-        ln -s $dir/$file $homedir/.$file
+    if [ -e $file ]; then
+        echo "making symlink to $file"
+        ln -s $file $homedir/.$(basename .$file)
     fi
 done
