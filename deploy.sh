@@ -8,15 +8,20 @@ set -x
 shopt -s nullglob
 
 ########## Variables
-homedir="/home/willem"
+homedir="/home/$USER"
 dotfilesname="dotfiles"
 backupdirname="old"
 scriptname="deploy.sh"
+profilesname="profiles"
+hostname="$(hostname)"
 
-dir=$homedir/$dotfilesname                  # dotfiles directory
-backupdir=$dir/$backupdirname             # old dotfiles backup directory
-ignorefiles="$backupdirname $scriptname README README.md"    # list of files/folders to symlink in homedir
-files=$dir/*
+dir="$homedir/$dotfilesname"
+backupdir="$dir/$backupdirname"
+profilesdir="$dir/$profilesname"
+hostnamedir="$profilesdir/$hostname"
+userdir="$hostnamedir/$USER"
+ignorefiles="$backupdirname $scriptname $profilesname README README.md"
+files="$dir/*"
 
 set +x
 
@@ -25,47 +30,67 @@ read -p "Are you sure you want to install dotfiles with these settings? Y/N: " a
 
 while true
 do
-    case $answer in
-        [yY]* ) break;;
-        [nN]* ) exit;;
-        * )     read -p "Y/N: " answer;;
-    esac
+        case $answer in
+                [yY]* ) break;;
+                [nN]* ) exit;;
+                * )     read -p "Y/N: " answer;;
+        esac
 done
 
 ########## Process
 # Backup directory
-mkdir -p $backupdir
+mkdir -p "$backupdir"
 
 # change to the dotfiles directory
-cd $dir
+cd "$dir"
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 
 for file in $files; do
-    echo "processing $file"
-    for notthisfile in $ignorefiles; do
-        if [ "$dir/$notthisfile" == "$file" ]; then
-            echo "blacklisted"
-            continue 2
+        file=$(basename "$file")
+        echo "processing $file"
+        # ignore blacklisted files and folders (such as this script)
+        for notthisfile in $ignorefiles; do
+                if [ "$notthisfile" == "$file" ]; then
+                        # skip this file
+                        echo "blacklisted"
+                        continue 2
+                fi
+        done
+        # remove old (conflicting) symlinks
+        if [ -h "$homedir/.$file" ]; then
+                echo "removing old symlink"
+                rm "$homedir/.$file"
         fi
-    done
-            
-    if [ -h $homedir/.$(basename $file) ]; then
-        echo "symlink already exists"
-        continue
-    fi
-    if [ -e $homedir/.$(basename $file) ]; then
-        if [ -e $backupdir/.$file ]; then
-            echo "backup conflict, aborting"
-            continue
+        # back up 'old'/conflicting dotfiles
+        if [ -e "$homedir/.$file" ]; then
+                if [ -e "$backupdir/.$file" ]; then
+                        # skip this file
+                        echo "backup conflict, aborting"
+                        continue
+                fi
+                # back up file
+                echo "backing up .$file"
+                mv "$homedir/.$file" "$backupdir"
+        else
+                echo "nothing to backup"
         fi
-        echo "backing up .$file"
-        mv $homedir/.$(basename $file) $backupdir
-    else
-        echo "nothing to backup"
-    fi
-    if [ -e $file ]; then
-        echo "making symlink to $file"
-        ln -s $file $homedir/.$(basename .$file)
-    fi
+        # prioritize hostname and user-specific file
+        if [ -e "$userdir/$file" ]; then
+                echo "making symlink to $userdir/$file"
+                ln -s "$userdir/$file" "$homedir/.$file"
+                continue
+        fi
+        # then prioritize hostname-specific file
+        if [ -e "$hostnamedir/$file" ]; then
+                echo "making symlink to $hostnamedir/$file"
+                ln -s "$hostnamedir/$file" "$homedir/.$file"
+                continue
+        fi
+        # then use the default file
+        if [ -e "$dir/$file" ]; then
+                echo "making symlink to $file"
+                ln -s "$dir/$file" "$homedir/.$file"
+                continue
+        fi
 done
