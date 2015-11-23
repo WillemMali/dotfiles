@@ -71,7 +71,7 @@ for file in $files; do
                 fi
                 # back up file
                 echo "backing up .$file"
-                mv "$homedir/.$file" "$backupdir"
+                mv -rf "$homedir/.$file" "$backupdir"
         else
                 echo "nothing to backup"
         fi
