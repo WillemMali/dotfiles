@@ -5,7 +5,10 @@
 ############################
 
 set -x
+# no result if glob matches nothing
 shopt -s nullglob
+# glob filetype pattern support
+shopt -s extglob
 
 ########## Variables
 homedir="/home/$USER"
@@ -22,6 +25,7 @@ hostnamedir="$profilesdir/$hostname"
 userdir="$hostnamedir/$USER"
 ignorefiles="$backupdirname $scriptname $profilesname README README.md"
 files="$dir/*"
+executablefilter=@(*.py|*.sh)
 
 set +x
 
@@ -71,7 +75,7 @@ for file in $files; do
                 fi
                 # back up file
                 echo "backing up .$file"
-                mv -rf "$homedir/.$file" "$backupdir"
+                mv "$homedir/.$file" "$backupdir"
         else
                 echo "nothing to backup"
         fi
@@ -79,18 +83,17 @@ for file in $files; do
         if [ -e "$userdir/$file" ]; then
                 echo "making symlink to $userdir/$file"
                 ln -s "$userdir/$file" "$homedir/.$file"
-                continue
-        fi
         # then prioritize hostname-specific file
-        if [ -e "$hostnamedir/$file" ]; then
+        elif [ -e "$hostnamedir/$file" ]; then
                 echo "making symlink to $hostnamedir/$file"
                 ln -s "$hostnamedir/$file" "$homedir/.$file"
-                continue
-        fi
         # then use the default file
-        if [ -e "$dir/$file" ]; then
+        elif [ -e "$dir/$file" ]; then
                 echo "making symlink to $file"
                 ln -s "$dir/$file" "$homedir/.$file"
-                continue
         fi
+        # make executable
+        case "$file" in
+                $executablefilter ) echo "making .$file executable"; chmod +x "$homedir/.$file";;
+        esac
 done
