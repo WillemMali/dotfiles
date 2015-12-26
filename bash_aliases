@@ -17,3 +17,9 @@ fi
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+
+# power management
+alias suspend='qdbus --system org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend true'
+alias shutdown='sudo shutdown -P now'
+alias reboot='sudo shutdown -r now'
+alias stop='sync; '
