@@ -1,5 +1,5 @@
-! remove xterm border
-xterm*borderWidth: 0
+! urxvt settings
+URxvt*scrollBar: false
 
 ! special
 *.foreground:   #cccccc

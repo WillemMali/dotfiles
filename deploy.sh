@@ -25,6 +25,8 @@ hostnamedir="$profilesdir/$hostname"
 userdir="$hostnamedir/$USER"
 ignorefiles="$backupdirname $scriptname $profilesname README README.md"
 files="$dir/*"
+
+# make files with this extension executable
 executablefilter=@(*.py|*.sh)
 
 set +x
@@ -57,7 +59,7 @@ for file in $files; do
         for notthisfile in $ignorefiles; do
                 if [ "$notthisfile" == "$file" ]; then
                         # skip this file
-                        echo "blacklisted"
+                        echo "file blacklisted, aborting"
                         continue 2
                 fi
         done
@@ -70,30 +72,36 @@ for file in $files; do
         if [ -e "$homedir/.$file" ]; then
                 if [ -e "$backupdir/.$file" ]; then
                         # skip this file
-                        echo "backup conflict, aborting"
+                        echo "backup conflict, aborting!"
                         continue
                 fi
                 # back up file
-                echo "backing up .$file"
-                mv "$homedir/.$file" "$backupdir"
+                printf "backing up .${file}..."
+                if [ ! mv "$homedir/.$file" "$backupdir" ]; then
+                        # skip this file
+                        echo " backup fail, aborting!"
+                        continue
+                else
+                        echo " success."
+                fi
         else
                 echo "nothing to backup"
         fi
         # prioritize hostname and user-specific file
         if [ -e "$userdir/$file" ]; then
-                echo "making symlink to $userdir/$file"
-                ln -s "$userdir/$file" "$homedir/.$file"
+                printf "making symlink to $userdir/$file"
+                if [ ln -s "$userdir/$file" "$homedir/.$file" ] then echo " success."; else echo " fail!"; fi
         # then prioritize hostname-specific file
         elif [ -e "$hostnamedir/$file" ]; then
-                echo "making symlink to $hostnamedir/$file"
-                ln -s "$hostnamedir/$file" "$homedir/.$file"
+                printf "making symlink to $hostnamedir/$file"
+                if [ ln -s "$hostnamedir/$file" "$homedir/.$file" ] then echo " success."; else echo " fail!"; fi
         # then use the default file
         elif [ -e "$dir/$file" ]; then
-                echo "making symlink to $file"
-                ln -s "$dir/$file" "$homedir/.$file"
+                printf "making symlink to ${file}..."
+                if [ ln -s "$dir/$file" "$homedir/.$file" ] then echo " success."; else echo " fail!"; fi
         fi
         # make executable
         case "$file" in
-                $executablefilter ) echo "making .$file executable"; chmod +x "$homedir/.$file";;
+                $executablefilter ) printf "making .$file executable..."; if [ chmod +x "$homedir/.$file" ] then echo " success."; else echo " fail!"; fi ;;;
         esac
 done
