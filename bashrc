@@ -110,4 +110,21 @@ man() {
     man "$@"
 }
 
+function nonono() {
+        while true; do
+                printf "no "
+                sleep 1
+        done
+}
+
+function DoctorNo() {
+        while true; do
+                echo "Ask me anything?"
+                read;
+                echo "No."
+        done
+}
+
 export PAGER='less'
+eval "$(lesspipe)"
+eval "$(thefuck --alias)"
