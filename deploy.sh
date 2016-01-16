@@ -54,7 +54,7 @@ cd "$dir"
 
 for file in $files; do
         file=$(basename "$file")
-        echo "processing $file"
+        printf "\nprocessing $file\n"
         # ignore blacklisted files and folders (such as this script)
         for notthisfile in $ignorefiles; do
                 if [ "$notthisfile" == "$file" ]; then
@@ -65,8 +65,8 @@ for file in $files; do
         done
         # remove old (conflicting) symlinks
         if [ -h "$homedir/.$file" ]; then
-                echo "removing old symlink"
-                rm "$homedir/.$file"
+                printf "removing old symlink..."
+                if rm "$homedir/.$file"; then echo " success."; else echo " fail, aborting!"; fi
         fi
         # back up 'old'/conflicting dotfiles
         if [ -e "$homedir/.$file" ]; then
@@ -77,7 +77,7 @@ for file in $files; do
                 fi
                 # back up file
                 printf "backing up .${file}..."
-                if [ ! mv "$homedir/.$file" "$backupdir" ]; then
+                if ! mv "$homedir/.$file" "$backupdir"; then
                         # skip this file
                         echo " backup fail, aborting!"
                         continue
@@ -90,18 +90,20 @@ for file in $files; do
         # prioritize hostname and user-specific file
         if [ -e "$userdir/$file" ]; then
                 printf "making symlink to $userdir/$file"
-                if [ ln -s "$userdir/$file" "$homedir/.$file" ] then echo " success."; else echo " fail!"; fi
+                if ln -s "$userdir/$file" "$homedir/.$file"; then echo " success."; else echo " fail!"; fi
         # then prioritize hostname-specific file
         elif [ -e "$hostnamedir/$file" ]; then
                 printf "making symlink to $hostnamedir/$file"
-                if [ ln -s "$hostnamedir/$file" "$homedir/.$file" ] then echo " success."; else echo " fail!"; fi
+                if ln -s "$hostnamedir/$file" "$homedir/.$file"; then echo " success."; else echo " fail!"; fi
         # then use the default file
         elif [ -e "$dir/$file" ]; then
                 printf "making symlink to ${file}..."
-                if [ ln -s "$dir/$file" "$homedir/.$file" ] then echo " success."; else echo " fail!"; fi
+                if ln -s "$dir/$file" "$homedir/.$file"; then echo " success."; else echo " fail!"; fi
         fi
         # make executable
         case "$file" in
-                $executablefilter ) printf "making .$file executable..."; if [ chmod +x "$homedir/.$file" ] then echo " success."; else echo " fail!"; fi ;;;
+                $executablefilter ) printf "making .$file executable..."; if chmod +x "$homedir/.$file"; then echo " success."; else echo " fail!"; fi ;;
         esac
 done
+
+printf "\nprocessed all files\n"
