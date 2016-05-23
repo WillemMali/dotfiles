@@ -128,3 +128,5 @@ function DoctorNo() {
 export PAGER='less'
 eval "$(lesspipe)"
 eval "$(thefuck --alias)"
+
+[ -s "/home/willem/.dnx/dnvm/dnvm.sh" ] && . "/home/willem/.dnx/dnvm/dnvm.sh" # Load dnvm

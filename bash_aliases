@@ -1,4 +1,4 @@
-alias push="git add -A :/; git commit -m 'lazy push'; git push origin master"
+alias push="git add -A :/; git commit -m 'rush push'; git push origin master"
 alias gocbgb="cd ~/work/42tech/cbgb"
 
 # enable color support of ls and also add handy aliases
@@ -19,7 +19,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # power management
-alias suspend='qdbus --system org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend true'
-alias shutdown='sudo shutdown -P now'
-alias reboot='sudo shutdown -r now'
-alias stop='sync; '
+alias suspend='date; systemctl suspend; sleep 7; date'
+alias shutdown='systemctl poweroff'
+alias reboot='systemctl reboot'
+alias stop='sync && echo 1 > /proc/sys/kernel/sysrq && echo b > /proc/sysrq-trigger'
