@@ -8,6 +8,10 @@ set mouse=a
 " unindent keybind
 imap <S-Tab> <C-d>
 
+" newline with enter
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
+
 " enable filetype based syntax highlighting
 filetype on
 

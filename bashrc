@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
         if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -87,6 +87,10 @@ if [ -f ~/.bash_aliases ]; then
         . ~/.bash_aliases
 fi
 
+if [ -f ~/.bash_functions ]; then
+        . ~/.bash_functions
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -110,23 +114,15 @@ man() {
     man "$@"
 }
 
-function nonono() {
-        while true; do
-                printf "no "
-                sleep 1
-        done
-}
-
-function DoctorNo() {
-        while true; do
-                echo "Ask me anything?"
-                read;
-                echo "No."
-        done
-}
-
 export PAGER='less'
-eval "$(lesspipe)"
-eval "$(thefuck --alias)"
 
+if command -v lesspipe; then
+        eval "$(lesspipe)"
+fi
+
+if command -v thefuck; then
+        eval "$(thefuck --alias)"
+fi
+
+# .NET SDK shite
 [ -s "/home/willem/.dnx/dnvm/dnvm.sh" ] && . "/home/willem/.dnx/dnvm/dnvm.sh" # Load dnvm
