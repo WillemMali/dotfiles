@@ -1,11 +1,4 @@
-if [ -f ~/.bash/hostnames/$HOSTNAME/bash_aliases ]; then
-        . ~/.bash/hostnames/$HOSTNAME/bash_aliases
-fi
-
 alias push="git add -A :/; git commit -m 'rush push'; git push origin master"
-alias cbgb="cd ~/work/42tech/cbgb"
-alias wbso="cd ~/work/42tech/wbso"
-alias belval="cd ~/work/42tech/belval"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -29,3 +22,9 @@ alias suspend='date; systemctl suspend; sleep 7; date'
 alias shutdown='systemctl poweroff'
 alias reboot='systemctl reboot'
 alias stop='sync && echo 1 > /proc/sys/kernel/sysrq && echo b > /proc/sysrq-trigger'
+
+# machine-specific aliases - should override defaults above, so they're
+# put at the end of this file
+if [ -f ~/.bash/hostnames/$HOSTNAME/bash_aliases ]; then
+        . ~/.bash/hostnames/$HOSTNAME/bash_aliases
+fi
