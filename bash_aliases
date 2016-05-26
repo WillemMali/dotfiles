@@ -1,5 +1,11 @@
+if [ -f ~/.bash/hostnames/$HOSTNAME/bash_aliases ]; then
+        . ~/.bash/hostnames/$HOSTNAME/bash_aliases
+fi
+
 alias push="git add -A :/; git commit -m 'rush push'; git push origin master"
-alias gocbgb="cd ~/work/42tech/cbgb"
+alias cbgb="cd ~/work/42tech/cbgb"
+alias wbso="cd ~/work/42tech/wbso"
+alias belval="cd ~/work/42tech/belval"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
