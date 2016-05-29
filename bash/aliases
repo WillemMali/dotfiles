@@ -22,9 +22,3 @@ alias suspend='date; systemctl suspend; sleep 7; date'
 alias shutdown='systemctl poweroff'
 alias reboot='systemctl reboot'
 alias stop='sync && echo 1 > /proc/sys/kernel/sysrq && echo b > /proc/sysrq-trigger'
-
-# machine-specific aliases - should override defaults above, so they're
-# put at the end of this file
-if [ -f ~/.bash/hostnames/$HOSTNAME/bash_aliases ]; then
-        . ~/.bash/hostnames/$HOSTNAME/bash_aliases
-fi
