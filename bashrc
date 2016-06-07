@@ -61,7 +61,7 @@ unset color_prompt force_color_prompt
 # git prompt
 source ~/.bash/bash_git
 
-PS1='[\h: \W$(__git_ps1 " (%s)")] '
+PS1='[\h:\W$(__git_ps1 " (%s)")] '
 
 
 # colored GCC warnings and errors
