@@ -4,6 +4,7 @@ filetype indent plugin on
 set tabstop=8
 set expandtab
 set mouse=a
+set tags=./tags;/
 
 " unindent keybind
 imap <S-Tab> <C-d>
@@ -11,6 +12,9 @@ imap <S-Tab> <C-d>
 " newline with enter
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
+
+" highlight trailing whitespace
+:autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/ containedin=ALL
 
 " enable filetype based syntax highlighting
 filetype on
