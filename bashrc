@@ -59,7 +59,7 @@ fi
 unset color_prompt force_color_prompt
 
 # git prompt
-source ~/.bash/bash_git
+source ~/.bash/git
 
 PS1='[\h:\W$(__git_ps1 " (%s)")] '
 
