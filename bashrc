@@ -72,7 +72,7 @@ bind 'TAB:menu-complete'
 
 
 # Additional bash startup files
-files=(aliases fucntions)
+files=(aliases functions)
 
 for file in ${files[*]}
 do
