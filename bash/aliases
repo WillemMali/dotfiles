@@ -17,6 +17,12 @@ alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
 
+# extra extra lazy git
+alias ga='g a'
+alias gs='g s'
+alias gp='g p'
+alias gc='g c'
+
 # power management
 alias suspend='date; systemctl suspend; sleep 7; date'
 alias shutdown='systemctl poweroff'

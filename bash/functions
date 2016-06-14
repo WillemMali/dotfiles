@@ -71,5 +71,26 @@ function a() {
 
 # lazy git
 function g() {
+        if [ "$*" == "a" ]; then
+                git add -A :/
+                return
+        fi
+
+        if [ "$*" == "c" ]; then
+                git commit -m "quick backup"
+                return
+        fi
+
+        if [ "$*" == "p" ]; then
+                git push --all
+                return
+        fi
+
+        if [ "$*" == "s" ]; then
+                git status
+                return
+        fi
+
+        echo "poep"
         git $@
 }
