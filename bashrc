@@ -59,7 +59,7 @@ fi
 unset color_prompt force_color_prompt
 
 # git prompt
-source ~/.bash/bash_git
+source ~/.bash/git
 
 PS1='[\h:\W$(__git_ps1 " (%s)")] '
 
@@ -70,18 +70,23 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # nicer tab completion
 bind 'TAB:menu-complete'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-        . ~/.bash_aliases
-fi
+# Additional bash startup files
+files=(aliases fucntions)
 
-if [ -f ~/.bash_functions ]; then
-        . ~/.bash_functions
-fi
+for file in ${files[*]}
+do
+        # Run additional stuff
+        if [ -f ~/.bash/$file ]; then
+                . ~/.bash/$file
+        fi
+
+        # Hostname-specific changes/additions
+        if [ -f ~/.bash/hostnames/$HOSTNAME/$file ]; then
+                . ~/.bash/hostnames/$HOSTNAME/$file
+        fi
+done
+
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -110,12 +115,12 @@ export PAGER='less'
 
 # enable lesspipe support
 if command -v lesspipe; then
-        eval "$(lesspipe)"
+        eval "$(lesspipe)" &> /dev/null
 fi
 
 # enable thefuck support
 if command -v thefuck; then
-        eval "$(thefuck --alias)"
+        eval "$(thefuck --alias)" &> /dev/null
 fi
 
 # .NET SDK shite
