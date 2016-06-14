@@ -71,26 +71,50 @@ function a() {
 
 # lazy git
 function g() {
+       command=`_g $@`
+       echo $command
+       echo `$command`
+}
+
+function _g() {
         if [ "$*" == "a" ]; then
-                git add -A :/
+                echo git add -A :/
+                return
+        fi
+
+        if [ "$1" == "a" ]; then
+                echo git add ${@:2}
                 return
         fi
 
         if [ "$*" == "c" ]; then
-                git commit -m "quick backup"
+                echo "git commit -m 'quick backup'"
+                return
+        fi
+
+        if [ "$1" == "c" ]; then
+                echo "git commit -m '${*:2}'"
+        fi
+
+        if [ "$*" == "d" ]; then
+                echo git diff
                 return
         fi
 
         if [ "$*" == "p" ]; then
-                git push --all
+                echo git push --all
+                return
+        fi
+
+        if [ "$1" == "p" ]; then
+                echo git push ${@:2}
                 return
         fi
 
         if [ "$*" == "s" ]; then
-                git status
+                echo git status
                 return
         fi
 
-        echo "poep"
-        git $@
+        echo git $@
 }
