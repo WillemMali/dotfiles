@@ -71,7 +71,7 @@ function a() {
 
 # echo then run command
 function erun() {
-       echo $@
+       echo "\"$@\""
        $@
 }
 
@@ -83,28 +83,28 @@ function ga() {
                 return
         fi
 
-        erun git add $@
+        erun git add "$@"
 }
 
 # lazy commit
 function gc() {
         if [ -z $1 ];
         then
-                erun git commit -m 'quick backup'
+                erun git commit -m "quick backup"
                 return
         fi
 
-        erun git commit $@
+        erun git commit "$@"
 }
 
 # lazy diff
 function gd() {
-        git diff $@
+        git diff "$@"
 }
 
 # lazy status
 function gs() {
-        erun git status $@
+        erun git status "$@"
 }
 
 # lazy push
@@ -115,5 +115,5 @@ function gp() {
                 return
         fi
 
-        erun git push $@
+        erun git push "$@"
 }
