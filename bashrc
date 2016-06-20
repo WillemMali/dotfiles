@@ -72,7 +72,7 @@ RESET="$(tput sgr0)"
 
 
 # set prompt
-PS1='${YELLOW}\W${RESET}$(__git_ps1 ":%s") # '
+PS1='\[$YELLOW\]\W\[$RESET\]$(__git_ps1 ":%s") # '
 
 
 # colored GCC warnings and errors
