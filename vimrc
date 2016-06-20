@@ -1,13 +1,20 @@
-set autoindent
 syntax on
+
+" default indent options
+set autoindent
 filetype indent plugin on
 set tabstop=8
 set expandtab
+
+" mouse support
 set mouse=a
 set tags=./tags;/
 
 " unindent keybind
 imap <S-Tab> <C-d>
+
+" fast redraws
+" set ttyfast
 
 " newline with enter
 nmap <S-Enter> O<Esc>
