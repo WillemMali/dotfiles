@@ -2,4 +2,4 @@
 highlight ColorColumn ctermbg=1 guibg=#00cc00
 let &colorcolumn="81,121"
 
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
+setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
