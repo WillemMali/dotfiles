@@ -123,12 +123,12 @@ export PAGER='less'
 
 # enable lesspipe support
 if command -v lesspipe; then
-        eval "$(lesspipe)" &> /dev/null
+        eval "$(lesspipe)" >/dev/null 2>&1
 fi
 
 # enable thefuck support
 if command -v thefuck; then
-        eval "$(thefuck --alias)" &> /dev/null
+        eval "$(thefuck --alias)" >/dev/null 2>&1
 fi
 
 # .NET SDK shite
