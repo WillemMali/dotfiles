@@ -1,0 +1,1 @@
+choco install -y --force skype filezilla ccleaner chocolateygui libreoffice dropbox virtualbox 7zip calibre fiddler windirstat virtuawin lastpass kodi qbittorrent sublimetext3 sublimetext3.packagecontrol steam spotify sourcetree filezilla.server eac evince easybcd classic-shell audacity

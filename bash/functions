@@ -12,17 +12,6 @@ mgit() {
         )
 }
 
-# short git commit
-acp() {
-        git add -A :/
-        if [ -n "$1" ]; then
-                git commit -m "$1"
-        else
-                git commit "quick backup"
-        fi
-        git push origin master
-}
-
 explore() {
         if [ -z "$1" ]; then
                 /bin/cygstart --explore `pwd`
@@ -73,47 +62,4 @@ function a() {
 function erun() {
        echo "\"$@\""
        $@
-}
-
-# lazy add
-function ga() {
-        if [ -z $1 ];
-        then
-                erun git add -A :/
-                return
-        fi
-
-        erun git add "$@"
-}
-
-# lazy commit
-function gc() {
-        if [ -z $1 ];
-        then
-                erun git commit -m "quick backup"
-                return
-        fi
-
-        erun git commit "$@"
-}
-
-# lazy diff
-function gd() {
-        git diff "$@"
-}
-
-# lazy status
-function gs() {
-        erun git status "$@"
-}
-
-# lazy push
-function gp() {
-        if [ -z $1 ];
-        then
-                erun git push --all
-                return
-        fi
-
-        erun git push "$@"
 }

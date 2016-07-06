@@ -23,7 +23,7 @@ backupdir="$dir/$backupdirname"
 profilesdir="$dir/$profilesname"
 hostnamedir="$profilesdir/$hostname"
 userdir="$hostnamedir/$USER"
-ignorefiles="$backupdirname $scriptname $profilesname README README.md cleansymlinks.sh"
+ignorefiles="$backupdirname $scriptname $profilesname README README.md *.sh"
 files="$dir/*"
 
 # make files with this extension executable
