@@ -70,9 +70,17 @@ MAGENTA="$(tput setaf 5)"
 CYAN="$(tput setaf 6)"
 RESET="$(tput sgr0)"
 
+exitstatus()
+{
+    if [[ $? == 0 ]]; then
+        echo "${GREEN}✓${RESET}"
+    else
+        echo "${RED}x${RESET}"
+    fi
+}
 
 # set prompt
-PS1='\[$YELLOW\]\W\[$RESET\]$(__git_ps1 ":%s") # '
+PS1='\A [\W$(__git_ps1 ":\[$YELLOW\]%s\[$RESET\]")] \u@\h\n$(exitstatus) ~ '
 
 
 # colored GCC warnings and errors
@@ -133,3 +141,26 @@ fi
 
 # .NET SDK shite
 [ -s "/home/willem/.dnx/dnvm/dnvm.sh" ] && . "/home/willem/.dnx/dnvm/dnvm.sh" # Load dnvm
+
+# set up ssh-agent
+SSH_ENV="$HOME/.ssh/environment"
+
+function start_agent {
+    echo "Initializing new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add;
+}
+
+# Source SSH settings, if applicable
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    #ps ${SSH_AGENT_PID} doesn't work under cywgin
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
