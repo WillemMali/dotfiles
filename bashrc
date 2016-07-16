@@ -73,9 +73,9 @@ RESET="$(tput sgr0)"
 exitstatus()
 {
     if [[ $? == 0 ]]; then
-        echo "${GREEN}✓${RESET}"
+        echo "✓"
     else
-        echo "${RED}x${RESET}"
+        echo "x"
     fi
 }
 
