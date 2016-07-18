@@ -208,6 +208,10 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 bindsym Mod1+XF86MonBrightnessUp exec xbacklight -inc 1
 bindsym Mod1+XF86MonBrightnessDown exec xbacklight -dec 1
 
+# Screenshot
+bindsym Print exec scrot
+bindsym Mod1+Print exec scrot -s
+
 # suspend computer
 bindsym XF86Sleep exec "systemctl suspend"
 
