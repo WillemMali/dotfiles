@@ -143,7 +143,7 @@ fi
 [ -s "/home/willem/.dnx/dnvm/dnvm.sh" ] && . "/home/willem/.dnx/dnvm/dnvm.sh" # Load dnvm
 
 # enable local shortcuts
-CDPATH="$HOME/.symlinks;$CDPATH"
+CDPATH="$HOME/.symlinks:$CDPATH"
 
 # set up ssh-agent
 SSH_ENV="$HOME/.ssh/environment"
