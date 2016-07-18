@@ -73,14 +73,14 @@ RESET="$(tput sgr0)"
 exitstatus()
 {
     if [[ $? == 0 ]]; then
-        echo "${GREEN}✓${RESET}"
+        echo "✓"
     else
-        echo "${RED}x${RESET}"
+        echo "x"
     fi
 }
 
 # set prompt
-PS1='\A [\W$(__git_ps1 ":\[$YELLOW\]%s\[$RESET\]")] \u@\h\n$(exitstatus) ~ '
+PS1='\A [\w$(__git_ps1 ":\[$YELLOW\]%s\[$RESET\]")] \u@\h\n$(exitstatus) ~ '
 
 
 # colored GCC warnings and errors
