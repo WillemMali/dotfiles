@@ -88,7 +88,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 
 # Additional bash startup files
-files=(aliases functions)
+files=("aliases" "functions")
 
 for file in ${files[*]}
 do
@@ -141,6 +141,9 @@ fi
 
 # .NET SDK shite
 [ -s "/home/willem/.dnx/dnvm/dnvm.sh" ] && . "/home/willem/.dnx/dnvm/dnvm.sh" # Load dnvm
+
+# enable local shortcuts
+CDPATH="$HOME/.symlinks;$CDPATH"
 
 # set up ssh-agent
 SSH_ENV="$HOME/.ssh/environment"
