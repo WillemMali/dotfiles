@@ -20,6 +20,11 @@ explore() {
         fi
 }
 
+rip() {
+        folder='$A/(%y) $A - $d [$R]'
+        rip cd rip --offset 102 --track-template="$folder/\$t \$a - \$n" --disc-template="$folder/\$d"
+}
+
 function nonono() {
         while true; do
                 printf "no "
