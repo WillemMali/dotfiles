@@ -80,8 +80,7 @@ exitstatus()
 }
 
 # set prompt
-# PS1='\A [\w$(__git_ps1 ":\[$YELLOW\]%s\[$RESET\]")] \u@\h\n`(exitstatus)` ~ '
-PS1='\A @\u [\h:\w]\n`(exitstatus)` ~ '
+PS1='\A [\u@\h:\w]\n`(exitstatus)` ~ '
 
 
 # colored GCC warnings and errors
