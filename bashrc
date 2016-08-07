@@ -58,8 +58,6 @@ fi
 
 unset color_prompt force_color_prompt
 
-# git prompt initialization
-source ~/.bash/git
 
 # prompt colors
 RED="$(tput setaf 1)"
