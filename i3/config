@@ -70,7 +70,7 @@ bindsym Mod1+Shift+q kill
 bindsym Mod1+d exec dmenu_run
 
 # start qutebrowser
-bindsym Mod1+q exec qutebrowser
+bindsym Mod1+q exec x-www-browser
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -148,8 +148,11 @@ bindsym Mod1+Shift+4 move container to workspace 4
 bindsym Mod1+Shift+c exec "xrdb -merge ~/.Xresources"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Mod1+Shift+r restart
+
+bindsym Mod2+l exec "i3lock"
+
 # exit i3 (logs you out of your X session)
-bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym mod1+shift+e exec "i3-msg exit"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
