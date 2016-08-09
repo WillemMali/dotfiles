@@ -11,7 +11,7 @@ shopt -s nullglob
 shopt -s extglob
 
 ########## Variables
-homedir="/home/$USER"
+homedir="$HOME"
 dotfilesname="dotfiles"
 backupdirname="old"
 scriptname="deploy.sh"
