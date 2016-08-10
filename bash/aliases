@@ -24,4 +24,4 @@ alias reboot='systemctl reboot'
 alias stop='sync && echo 1 > /proc/sys/kernel/sysrq && echo b > /proc/sysrq-trigger'
 
 # servers
-alias s='ssh willem@cacka.net'
+alias cacka.net='ssh willem@cacka.net'
