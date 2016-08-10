@@ -31,18 +31,6 @@ executablefilter=@(*.py|*.sh)
 
 set +x
 
-########## Confirmation dialog
-read -p "Are you sure you want to install dotfiles with these settings? Y/N: " answer
-
-while true
-do
-        case $answer in
-                [yY]* ) break;;
-                [nN]* ) exit;;
-                * )     read -p "Y/N: " answer;;
-        esac
-done
-
 ########## Process
 # Backup directory
 mkdir -p "$backupdir"
