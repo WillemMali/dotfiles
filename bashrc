@@ -143,6 +143,9 @@ fi
 # enable local shortcuts
 CDPATH="$HOME/.symlinks:$CDPATH"
 
+# convenience scripts
+PATH="$HOME/.bin:$PATH"
+
 # set up ssh-agent
 SSH_ENV="$HOME/.ssh/environment"
 
