@@ -1,5 +1,5 @@
 r font settings
-URxvt*font: xft:Inconsolata:style=Regular:size=9pt
+URxvt*font: 6x13
 
 ! urxvt settings
 URxvt*scrollBar: false
