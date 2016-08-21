@@ -1,5 +1,2 @@
-Host cacka.net
-  ForwardAgent yes
-
 ServerAliveCountMax 3
 serverAliveInterval 10
