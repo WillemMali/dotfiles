@@ -68,3 +68,7 @@ function erun() {
        echo "\"$@\""
        $@
 }
+
+function xt() {
+        xclip -o | xclip -selection c
+}
