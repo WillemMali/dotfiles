@@ -1,0 +1,25 @@
+set +f
+echo "Running ssh-add in case you want to not have to enter your ssh key for each repo"
+ssh-add
+for dir in ~/.checkdirs/*;
+do
+        echo "Checking $dir..."
+        (
+                cd "$dir"
+
+                # check if there are any uncommited changes
+
+                [[ `git status --porcelain` ]] && {
+                        echo "Uncommited changes, check failed!"
+                        exit 1
+                }
+
+                # check if the local master can be succesfully pushed to origin
+                git push origin master || {
+                        echo "Error occured trying to push to remote, check failed!"
+                        exit 1
+                }
+        ) || {
+                break
+        }
+done
