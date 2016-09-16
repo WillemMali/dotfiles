@@ -149,7 +149,7 @@ bindsym Mod1+Shift+c exec "xrdb -merge ~/.Xresources"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Mod1+Shift+r restart
 
-bindsym Mod2+l exec "i3lock"
+bindsym Mod1+m exec "i3lock"
 bindsym Mod1+v exec "gksudo virtualbox"
 
 # exit i3 (logs you out of your X session)
