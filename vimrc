@@ -6,15 +6,21 @@ filetype indent plugin on
 set tabstop=8
 set expandtab
 
+" run commands with ; in addition to :
+nnoremap ; :
+vnoremap ; :
+
 " mouse support
 set mouse=a
+
+" tags support
 set tags=./tags;/
 
 " unindent keybind
 imap <S-Tab> <C-d>
 
 " fast redraws
-" set ttyfast
+set ttyfast
 
 " newline with enter
 nmap <S-Enter> O<Esc>
@@ -26,7 +32,7 @@ nmap <CR> o<Esc>
 " enable filetype based syntax highlighting
 filetype on
 
-" enable syntax highlighting for Processing and Arduino
+" enable syntax highlighting for Processing, Arduino and Rust
 au BufNewFile,BufRead *.pde set filetype=java
 au BufNewFile,BufRead *.ino set filetype=cpp
 au BufNewFile,BufRead *.rs set filetype=rust
