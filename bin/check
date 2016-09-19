@@ -1,6 +1,8 @@
+#!/bin/sh -eu
+# enable file globbing
 set +f
-echo "Running ssh-add in case you want to not have to enter your ssh key for each repo"
-ssh-add
+
+# check all directories in ~/.checkdirs
 for dir in ~/.checkdirs/*;
 do
         echo "Checking $dir..."
