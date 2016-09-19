@@ -1,4 +1,4 @@
-#!/bin/sh -eu
+#!/bin/bash -eu
 # enable file globbing
 set +f
 
@@ -10,7 +10,6 @@ do
                 cd "$dir"
 
                 # check if there are any uncommited changes
-
                 [[ `git status --porcelain` ]] && {
                         echo "Uncommited changes, check failed!"
                         exit 1
