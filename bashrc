@@ -137,9 +137,6 @@ if command -v thefuck; then
         eval "$(thefuck --alias)" >/dev/null 2>&1
 fi
 
-# .NET SDK shite
-[ -s "/home/willem/.dnx/dnvm/dnvm.sh" ] && . "/home/willem/.dnx/dnvm/dnvm.sh" # Load dnvm
-
 # enable local shortcuts
 CDPATH="$HOME/.symlinks:$CDPATH"
 
