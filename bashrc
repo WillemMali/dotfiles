@@ -68,7 +68,7 @@ MAGENTA="$(tput setaf 5)"
 CYAN="$(tput setaf 6)"
 RESET="$(tput sgr0)"
 
-exitstatus()
+function exitstatus()
 {
     if [[ "$?" == "0" ]]; then
         echo "✓"
@@ -77,8 +77,12 @@ exitstatus()
     fi
 }
 
+function chroot() {
+    echo ${debian_chroot}${debian_chroot:+ }
+}
+
 # set prompt
-PS1='\A [\u@\h:\w]\n`(exitstatus)` ~ '
+PS1='\A $(chroot)[\u@\h:\w]\n$(exitstatus) ~ '
 
 
 # colored GCC warnings and errors
@@ -140,7 +144,7 @@ fi
 # enable local shortcuts
 CDPATH="$HOME/.symlinks:$CDPATH"
 
-# convenience scripts
+# personal scripts
 PATH="$HOME/.bin:$PATH"
 
 # set up ssh-agent
