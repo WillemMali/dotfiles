@@ -77,12 +77,8 @@ function exitstatus()
     fi
 }
 
-function chroot() {
-    echo ${debian_chroot}${debian_chroot:+ }
-}
-
 # set prompt
-PS1='\A $(chroot)[\u@\h:\w]\n$(exitstatus) ~ '
+PS1='\A [\u@\h:\w]\n`exitstatus` ~ '
 
 
 # colored GCC warnings and errors
