@@ -1,4 +1,4 @@
-r font settings
+! URxvt font settings
 URxvt*font: 6x13
 
 ! urxvt settings
