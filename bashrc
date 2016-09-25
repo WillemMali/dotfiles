@@ -71,7 +71,7 @@ RESET="$(tput sgr0)"
 function exitstatus()
 {
     if [[ "$?" == "0" ]]; then
-        echo "✓"
+        echo "o"
     else
         echo "x"
     fi
